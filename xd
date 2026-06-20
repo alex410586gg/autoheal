@@ -1,0 +1,17 @@
+if _G.AutoHealConnection then
+    _G.AutoHealConnection:Disconnect()
+    _G.AutoHealConnection = nil
+    print("Auto Heal: OFF")
+else
+    local HealRemote = game:GetService("ReplicatedStorage")
+        :WaitForChild("Remotes")
+        :WaitForChild("Heal")
+
+    local RunService = game:GetService("RunService")
+
+    _G.AutoHealConnection = RunService.Heartbeat:Connect(function()
+        HealRemote:FireServer()
+    end)
+
+    print("Auto Heal: ON")
+end
