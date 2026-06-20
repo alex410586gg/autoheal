@@ -1,0 +1,21 @@
+if _G.AutoHealState == nil then
+    _G.AutoHealState = true -- để lần đầu chạy sẽ chuyển thành OFF
+end
+
+_G.AutoHealState = not _G.AutoHealState
+
+if _G.AutoHealConnection == nil then
+    local HealRemote = game:GetService("ReplicatedStorage")
+        :WaitForChild("Remotes")
+        :WaitForChild("Heal")
+
+    local RunService = game:GetService("RunService")
+
+    _G.AutoHealConnection = RunService.Heartbeat:Connect(function()
+        if _G.AutoHealState then
+            HealRemote:FireServer()
+        end
+    end)
+end
+
+print("Auto Heal:", _G.AutoHealState and "ON" or "OFF")
