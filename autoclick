@@ -1,0 +1,21 @@
+if _G.AutoClicking == nil then
+    _G.AutoClicking = false
+end
+
+if _G.AutoClicking then
+    _G.AutoClicking = false
+    print("Auto Click: OFF")
+else
+    _G.AutoClicking = true
+    print("Auto Click: ON")
+
+    task.spawn(function()
+        while _G.AutoClicking do
+            mouse1press()
+            task.wait(0.01) -- giữ chuột 0.01 giây
+
+            mouse1release()
+            task.wait(0.01) -- chờ 0.01 giây rồi click tiếp
+        end
+    end)
+end
